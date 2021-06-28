@@ -31,17 +31,20 @@ mvn clean install
 ```
      
 ## Examples
-```$groovy
-import com.github.wonno.semver.Semver
+```$Java
+import com.github.musk.semver.Semver
 
 //version validation
 assert !Semver.validate("1.2.invalid")
 
 //version change
-assert Semver.parse("1.2.3+abcd").prerel("rc1").minor().text()=="1.3.0"
+var version = Semver.parse("1.2.3+abcd").prerel("rc1").minor().text()
+assert Objects.equals(version, "1.3.0")
 
-//version comparison
-assert Semver.parse("1.0.7+acf430") < new Semver("1.0.6").patch()
+//version comparison v1 < v2
+var v1 = Semver.parse("1.0.7+acf430")
+var v2 = new Semver("1.0.6").patch()
+assert v1.compareTo(v2) == -1
 ```
 
 ## Links
@@ -49,4 +52,5 @@ assert Semver.parse("1.0.7+acf430") < new Semver("1.0.6").patch()
 * Inspired by [semver-tool](https://github.com/fsaintjacques/semver-tool/) written in bash.
 
 ## Credits
-*  [semver-tool](https://github.com/fsaintjacques/semver-tool/) project for the regex and the testcases
+* ported from [groovy-semver-tool](https://github.com/Wonno/groovy-semver-tool)
+* [semver-tool](https://github.com/fsaintjacques/semver-tool/) project for the regex and the testcases
